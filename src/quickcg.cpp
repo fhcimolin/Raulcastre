@@ -951,7 +951,11 @@ int loadImage(std::vector<ColorRGB>& out, unsigned long& w, unsigned long& h, co
 {
   std::vector<unsigned char> file, image;
   loadFile(file, filename);
-  if(decodePNG(image, w, h, file)) return 1;
+
+  if (decodePNG(image, w, h, file)) {
+      std::cout << "Failed to load " << filename << "\n";
+      return 1;
+  }
 
   out.resize(image.size() / 4);
 
@@ -970,7 +974,10 @@ int loadImage(std::vector<Uint32>& out, unsigned long& w, unsigned long& h, cons
 {
   std::vector<unsigned char> file, image;
   loadFile(file, filename);
-  if(decodePNG(image, w, h, file)) return 1;
+  if (decodePNG(image, w, h, file)) {
+      std::cout << "Failed to load " << filename << "\n";
+      return 1;
+  }
 
   out.resize(image.size() / 4);
 
@@ -1207,7 +1214,9 @@ int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width,
     static unsigned long readBitsFromStream(size_t& bitp, const unsigned char* bits, size_t nbits)
     {
       unsigned long result = 0;
-      for(size_t i = 0; i < nbits; i++) result += (readBitFromStream(bitp, bits)) << i;
+      for(size_t i = 0; i < nbits; i++) {
+          result += (readBitFromStream(bitp, bits)) << i;
+      }
       return result;
     }
     struct HuffmanTree
@@ -1407,7 +1416,7 @@ int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width,
       readPngHeader(&in[0], size); if(error) return;
       size_t pos = 33; //first byte of the first chunk after the header
       std::vector<unsigned char> idat; //the data from idat chunks
-      bool IEND = false, known_type = true;
+      bool IEND = false;
       info.key_defined = false;
       while(!IEND) //loop through the chunks, ignoring unknown chunks and stopping at IEND chunk. IDAT data is put at the start of the in buffer
       {
@@ -1459,7 +1468,6 @@ int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width,
         {
           if(!(in[pos + 0] & 32)) { error = 69; return; } //error: unknown critical chunk (5th bit of first byte of chunk type is 0)
           pos += (chunkLength + 4); //skip 4 letters and uninterpreted data of unimplemented chunk
-          known_type = false;
         }
         pos += 4; //step over CRC (which is ignored)
       }
