@@ -951,7 +951,11 @@ int loadImage(std::vector<ColorRGB>& out, unsigned long& w, unsigned long& h, co
 {
   std::vector<unsigned char> file, image;
   loadFile(file, filename);
-  if(decodePNG(image, w, h, file)) return 1;
+
+  if (decodePNG(image, w, h, file)) {
+      std::cout << "Failed to load " << filename << "\n";
+      return 1;
+  }
 
   out.resize(image.size() / 4);
 
@@ -970,7 +974,10 @@ int loadImage(std::vector<Uint32>& out, unsigned long& w, unsigned long& h, cons
 {
   std::vector<unsigned char> file, image;
   loadFile(file, filename);
-  if(decodePNG(image, w, h, file)) return 1;
+  if (decodePNG(image, w, h, file)) {
+      std::cout << "Failed to load " << filename << "\n";
+      return 1;
+  }
 
   out.resize(image.size() / 4);
 
@@ -1207,7 +1214,9 @@ int decodePNG(std::vector<unsigned char>& out_image, unsigned long& image_width,
     static unsigned long readBitsFromStream(size_t& bitp, const unsigned char* bits, size_t nbits)
     {
       unsigned long result = 0;
-      for(size_t i = 0; i < nbits; i++) result += (readBitFromStream(bitp, bits)) << i;
+      for(size_t i = 0; i < nbits; i++) {
+          result += (readBitFromStream(bitp, bits)) << i;
+      }
       return result;
     }
     struct HuffmanTree
