@@ -543,7 +543,6 @@ int main(int /*argc*/, char */*argv*/[])
             bool halt_scanning = false;
 
             bool time_to_draw_those_silly_floating_cubes = false;
-            bool floating_cubes_drawn_successfully = false;
 
             while(store != max_store /*&& !floating_cubes_drawn_successfully*/)
             {
