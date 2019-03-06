@@ -38,7 +38,7 @@ using namespace QuickCG;
 #define mapWidth 24
 #define mapHeight 24
 int myass = 0;
-/*int worldMap[mapWidth][mapHeight] =
+int worldMap[mapWidth][mapHeight] =
   {
   {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3},
   {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
@@ -64,9 +64,9 @@ int myass = 0;
   {3,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
   {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
   {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3}
-  };*/
+  };
 
-std::vector<std::vector<int>> worldMap;
+//std::vector<std::vector<int>> worldMap;
 //std::vector<std::vector<int>> bumpMap;
 
 int bumpMap[mapWidth][mapHeight] =
@@ -396,7 +396,7 @@ void draw_background(const std::vector<Uint32>& texture, int offset){
     }
 }
 
-int main(int /*argc*/, char */*argv*/[])
+int main(int /*argc*/, char * /*argv*/[])
 {
     double posX = 22.0, posY = 11.5; //x and y start position
     double dirX = -1.0, dirY = 0.0; //initial direction vector
@@ -597,9 +597,19 @@ int main(int /*argc*/, char */*argv*/[])
                         hit = 1;
                         halt_scanning = true;
                     }
-                    if (bumpMap[mapX][mapY] < 9 && worldMap[mapX][mapY] > 0 && store == 0) hit = 1;
-                    if (bumpMap[mapX][mapY] == 2 && store == 1) hit = 1;
-                    if (bumpMap[mapX][mapY] == 9 && store == 1) hit = 1;
+
+                    if (bumpMap[mapX][mapY] < 9 &&
+                        worldMap[mapX][mapY] > 0 &&
+                        store == 0
+                    ) {
+                        hit = 1;
+                    }
+                    if (bumpMap[mapX][mapY] == 2 && store == 1) {
+                        hit = 1;
+                    }
+                    if (bumpMap[mapX][mapY] == 9 && store == 1) {
+                        hit = 1;
+                    }
                 }
 
                 if(halt_scanning){
