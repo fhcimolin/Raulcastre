@@ -1,0 +1,7 @@
+# Project-specific
+raulcastre
+raulcastre.exe
+
+# C++ Artifacts
+*.o
+*.out

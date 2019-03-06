@@ -27,21 +27,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <iostream>
 #include <sstream>
 
-#include<conio.h>
-
-#include "include/Artist.h"
-#include "include/Texture.h"
-
-#include "include/Map.h"
-
 #include "quickcg.h"
+
 using namespace QuickCG;
-
-/*
-g++ *.cpp -lSDL -O3 -W -Wall -ansi -pedantic
-g++ *.cpp -lSDL
-*/
-
 
 #define screenWidth 640
 #define screenHeight 480
@@ -222,7 +210,7 @@ void rotate_player(double &dirX, double &dirY, double &planeX, double &planeY, d
     }
 }
 
-Point move_player(double &posX, double &posY, double &dirX, double &dirY, double &planeX, double &planeY, double moveSpeed, double rotSpeed, int &offset){
+void move_player(double &posX, double &posY, double &dirX, double &dirY, double &planeX, double &planeY, double moveSpeed, double rotSpeed, int &offset){
     Point player_position;
 
     if (keyDown(SDLK_UP))
@@ -417,7 +405,7 @@ int main(int /*argc*/, char */*argv*/[])
   double time = 0; //time of current frame
   double oldTime = 0; //time of previous frame
 
-  Texture textura;
+  // Texture textura;
 
   std::vector<Uint32> texture[12];
   for(int i = 0; i < 12; i++) texture[i].resize(texWidth * texHeight);
@@ -440,16 +428,19 @@ int main(int /*argc*/, char */*argv*/[])
   error |= loadImage(texture[9], tw, th, "pics/pillar.png");
   error |= loadImage(texture[10], tw, th, "pics/greenlight.png");
   error |= loadImage(texture[11], tw, th, "pics/eagle.png");
-  if(error) { std::cout << "error loading images" << std::endl; return 1; }
 
-    int offset = 0;
-    offset = bg_width * resize_bg * 2;
+  if(error) {
+      std::cout << "error loading images" << std::endl;
+      return 1;
+  }
+
+  int offset = bg_width * resize_bg * 2;
 
   //start the main loop
 
-  Map level_map;
+  // Map level_map;
 
-  worldMap = level_map.get_world_map();
+  // worldMap = level_map.get_world_map();
   //bumpMap = level_map.get_bump_map();
 
   //std::cout << bumpMap.size() << std::endl;
