@@ -5,9 +5,13 @@
 cmake_minimum_required(VERSION 3.11)
 project(raulcastre CXX)
 
+# Set C++17 standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Add warning flags for g++
 if(CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra -Werror")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic -Wall -Wextra -Werror")
 endif()
 
 # Show profile and compilation flags
@@ -18,10 +22,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 else()
     message("         Release flags  -> ${CMAKE_CXX_FLAGS_RELEASE}")
 endif()
-
-# Set C++17 standard
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #------------------------------------------------------------------------------
 # External Libraries
